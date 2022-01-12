@@ -57,7 +57,11 @@ public class RequestFactory extends TestBase {
    * @return Response of the request
    */
   public static Response getBoardById(String boardId) {
-    return null;
+    logger.info("Get info by boardID");
+    String requestPath = String.format(prop.getProperty("boardIDPath"),version, boardId);
+    Response res = RestClient.doGetRequestWithParams(requestPath, params);
+    logger.info("Information of the board");
+    return res;
   }
 
   /**
@@ -67,6 +71,10 @@ public class RequestFactory extends TestBase {
    * @return Response of the request
    */
   public static Response deleteBoard(String boardId) {
+    logger.info("Delete boardID");
+    String requestPath = String.format(prop.getProperty("boardIDPath"),version, boardId);
+    Response res = RestClient.doDeleteRequestWithParams(requestPath, params);
+    logger.info("The board is deleted success");
     return null;
   }
 
@@ -80,7 +88,12 @@ public class RequestFactory extends TestBase {
    * @return Response of the request
    */
   public static Response createList(String boardId, String listName) {
-    return null;
+    logger.info("Creating a new list");
+    params.putAll(addParams(Map.of("name", listName, "idBoard", boardId)));
+    String requestPath = String.format(prop.getProperty("listCreationPath"),version);
+    Response res = RestClient.doPostRequestWithParamsAndNoPayload(requestPath, params);
+    logger.info("New list is created success");
+    return res;
   }
 
   // -------------------Card-------------------
@@ -91,15 +104,27 @@ public class RequestFactory extends TestBase {
    * @return
    */
   public static Response createCard(String taskName, String listId) {
-    return null;
+    logger.info("Creating a new card");
+    params.putAll(addParams(Map.of("name", taskName, "idList", listId)));
+    String requestPath = String.format(prop.getProperty("cardCreationPath"),version);
+    Response res = RestClient.doPostRequestWithParamsAndNoPayload(requestPath, params);
+    logger.info("New card is created success");
+    return res;
+
   }
 
   /**
    * @param cardId
-   * @param listId
+   * @param listId2
    * @return
    */
-  public static Response updateCard(String cardId, String listId) {
-    return null;
+  public static Response updateCard(String cardId, String listId2) {
+
+    logger.info("Updating a new card");
+    params.putAll(addParams(Map.of("List", listId2)));
+    String requestPath = String.format(prop.getProperty("updatingCardPath"),version,cardId);
+    Response res = RestClient.doPostRequestWithParamsAndNoPayload(requestPath, params);
+    logger.info("New card is updated success");
+    return res;
   }
 }

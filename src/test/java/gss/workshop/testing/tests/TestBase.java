@@ -11,6 +11,10 @@ public class TestBase {
   protected static String key;
   protected static String version;
 
+  public static final String TODO_List = "ToDo";
+  public static final String DONE_List = "Done";
+  public static final String Zero = "0";
+
   public TestBase() {
     prop = PropertyReader.getInstance();
     baseURI = prop.getProperty("baseURI");
